@@ -27,6 +27,7 @@ const assistant = new AssistantV1({
 
   /**
    * Wheter to use SSL or not
+   * TODO: Configure HTTPS properly, need to know deployment enviroment to do this.
    * @name disable_ssl_verification
    * @type {Boolean}
    */
