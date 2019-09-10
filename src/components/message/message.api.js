@@ -4,6 +4,7 @@ const Validator = require('../..//middlewares/validator.middleware');
 
 const { message } = require('../../service/watson');
 
+// TODO create test for POST /message
 const routes = () => {
   const router = express.Router();
 

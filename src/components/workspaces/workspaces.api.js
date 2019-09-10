@@ -1,6 +1,7 @@
 const express = require('express');
 const { listWorkSpaces } = require('../../service/watson');
 
+// TODO create test for GET /workspaces
 const routes = () => {
   const router = express.Router();
 
