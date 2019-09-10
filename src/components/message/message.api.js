@@ -14,7 +14,7 @@ const routes = () => {
       const { workspaceId, textInput, context } = req.body;
 
       // Fetch data from another layer.
-      const response = await message(workspaceId, textInput, context);
+      const response = await message(textInput, context, workspaceId);
 
       // Convert response to json before sending it.
       return res.json(response);

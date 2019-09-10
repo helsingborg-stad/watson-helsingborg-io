@@ -47,9 +47,9 @@ const listWorkSpaces = () => assistant.listWorkspaces();
  * @param {String} context Conversation ID, defaults to undefined (to initiate a new conversation)
  * @return {promise} Watson response
  */
-const message = (workspaceId, text, context = undefined) => {
+const message = (text, context = undefined, workspaceId = undefined) => {
   const payload = {
-    workspace_id: workspaceId,
+    workspace_id: workspaceId || process.env.WORKSPACE_ID,
     input: {
       text,
     },
