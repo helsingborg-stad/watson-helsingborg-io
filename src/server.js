@@ -22,8 +22,9 @@ const logger = require('./utils/logger');
 /**
  * Config
  */
-const { SERVER_PORT } = process.env;
+const { PORT } = process.env;
 const API_BASE = '/api/v1';
+
 
 /**
  * Init App
@@ -56,8 +57,8 @@ const server = http.createServer(app);
  */
 
 // Listen on port specfied in env-file.
-server.listen({ port: SERVER_PORT }, async () => {
-  logger.info(`Server started on port ${SERVER_PORT}`);
+server.listen({ port: PORT }, async () => {
+  logger.info(`Server started on port ${PORT}`);
   // webSocketServer.start();
 });
 
