@@ -12,7 +12,7 @@ const WebSocketServer = require('./ws.server');
 /**
  * Config
  */
-const SERVER_PORT = config.get('SERVER.PORT');
+const SERVER_PORT = process.env.PORT || config.get('SERVER.PORT');
 const API_BASE = '/api/v1';
 
 /**
