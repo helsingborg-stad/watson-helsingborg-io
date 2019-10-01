@@ -23,7 +23,7 @@ const getWorkSpaces = async (req, res) => {
   try {
     const resourceData = await listWorkSpaces();
 
-    return await createSuccessResponse(resourceData.workspaces, res, 'workspaces', 'apiResponse');
+    return await createSuccessResponse(resourceData.workspaces, res, 'workspaces');
   } catch (error) {
     return createErrorResponse(error, res);
   }
