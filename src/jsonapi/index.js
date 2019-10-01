@@ -1,4 +1,6 @@
 const Serializer = require('./serializer.jsonapi');
+const addIdToApiResponse = require('./convert/convert.jsonapi');
+
 /**
  * Export
  * serializer: instance of json-api-serializer
@@ -7,4 +9,7 @@ const Serializer = require('./serializer.jsonapi');
 
 module.exports = {
   serializer: Serializer,
+  convert: {
+    includeId: addIdToApiResponse,
+  },
 };

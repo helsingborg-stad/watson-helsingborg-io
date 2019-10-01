@@ -18,5 +18,6 @@ const Serializer = new JSONAPISerializer({
  */
 
 Serializer.register('workspaces', schemas.workspaces);
+Serializer.register('message', schemas.message);
 
 module.exports = Serializer;
