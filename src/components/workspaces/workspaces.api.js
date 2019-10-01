@@ -1,20 +1,11 @@
 const express = require('express');
-const { listWorkSpaces } = require('../../service/watson');
+const dal = require('./workspaces.dal');
 
 // TODO create test for GET /workspaces
 const routes = () => {
   const router = express.Router();
 
-  router.get('/', async (req, res) => {
-    try {
-      const result = await listWorkSpaces();
-
-      return res.json(result);
-    } catch (err) {
-      // Send back error in json.
-      return res.status(err.status || 500).json(err);
-    }
-  });
+  router.get('/', async (req, res) => dal.read.workspaces(req, res));
 
   return router;
 };
