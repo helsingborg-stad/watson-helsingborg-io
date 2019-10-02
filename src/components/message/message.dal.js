@@ -33,7 +33,6 @@ const sendMessage = async (req, res) => {
 
     return await createSuccessResponse(response, res, 'message', 'includeId');
   } catch (error) {
-    console.log('wejofnworögeärogj');
     return createErrorResponse(error, res);
   }
 };
