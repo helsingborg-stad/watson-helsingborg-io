@@ -29,7 +29,8 @@ const middleware = (schema, field = 'body', detailedError = false) => (req, res,
         ? e
         : new WeakValidationError('Invalid request data. Please review request and try again.');
 
-      res.json(jsonapi.serializer.serializeError(err));
+      const serializedData = jsonapi.serializer.serializeError(err);
+      res.status(err.status).json(serializedData);
     });
 };
 
