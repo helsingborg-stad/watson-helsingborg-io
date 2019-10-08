@@ -1,3 +1,4 @@
 const pino = require('pino');
 
-module.exports = pino({ level: process.env.LOG_LEVEL });
+const { LOG_LEVEL } = process.env;
+module.exports = pino({ level: 'trace' });

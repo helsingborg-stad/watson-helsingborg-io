@@ -17,7 +17,7 @@ describe('Message', () => {
 
   it('should return json on GET with message query', async () => chai
     .request(server)
-    .get('/api/v1/message')
+    .post('/api/v1/message')
     .send()
     .then((res) => {
       res.should.have.status(200);
