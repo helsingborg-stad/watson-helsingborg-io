@@ -7,7 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 const express = require('express');
-// const config = require('config');
 // TODO: Configure HTTPS properly, need to know deployment enviroment to do this.
 // const https = require('https');
 const http = require('http');
