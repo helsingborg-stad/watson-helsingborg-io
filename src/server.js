@@ -23,7 +23,6 @@ const logger = require('./utils/logger');
  * Config
  */
 const { PORT } = process.env;
-const API_BASE = '/api/v1';
 
 
 /**
@@ -39,7 +38,7 @@ app.use(pino({ logger }));
 
 // Add routes to the app.
 app.get('/', (req, res) => res.send('Hello World!'));
-app.use(API_BASE, routes());
+app.use('/api/v1', routes());
 
 // TODO: Document endpoints using swagger
 // Swagger for documenting the api, access through localhost:xxxx/api-docs.
