@@ -14,7 +14,7 @@
 # 1. Create a git repository.
 # 2. Link the git repository to circle ci
 # 3. Go to "Checkout SSH keys in circleci"
-# 4. Add new checkout key and verify account access 
+# 4. Add new checkout key and verify account access
 # 5. Create a heroku container repository
 # 6. Enable deploy via status api on heroku
 # 7. Push branch to github
@@ -45,7 +45,7 @@ jobs:
       - restore_cache:
           key: lint-v1-{{ checksum "package.json" }}-{{ arch }}
 
-      - run: 
+      - run:
           name: Install depencencys
           command: npm install
 
@@ -84,7 +84,7 @@ jobs:
       - restore_cache:
           key: unit-v1-{{ checksum "package.json" }}-{{ arch }}
 
-      - run: 
+      - run:
           name: Install depencencys
           command: npm install
 
@@ -174,7 +174,7 @@ workflows:
       - build:
           filters:
             branches:
-              only: 
+              only:
                 - master
                 - develop
                 - /feature.*/
@@ -183,14 +183,14 @@ workflows:
             branches:
               only:
                 - master
-                - develop 
+                - develop
                 - /feature.*/
       - lint:
           filters:
             branches:
               only:
                 - master
-                - develop 
+                - develop
                 - /feature.*/
       - set_pkg_number_release:
           filters:
