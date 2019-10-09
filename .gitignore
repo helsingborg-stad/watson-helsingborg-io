@@ -6,8 +6,10 @@ node_modules/
 
 # dotenv environment variables file
 .env
+/.env.test
 
 # Ignore Mac DS_Store files
 .DS_Store
+
+# Ignore Mac istanbul test report files
 /.nyc_output/
- 
