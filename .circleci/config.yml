@@ -138,11 +138,6 @@ jobs:
       - image: circleci/node:12.3.1
 
     steps:
-      # Add SSH key used for pushing code to GIT repo.
-      - add_ssh_keys:
-          fingerprints:
-            - "97:41:e0:7d:d0:f3:35:76:d0:c2:f3:ab:ae:30:3b:78"
-
       - checkout
 
       - run:
