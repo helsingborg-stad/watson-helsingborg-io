@@ -29,7 +29,6 @@ app.use(bodyParser.json());
 app.use(pino({ logger }));
 
 // Add routes to the app.
-app.get('/', (req, res) => res.send('Hello World!'));
 app.use('/api/v1', routes());
 
 // TODO: Document endpoints using swagger
