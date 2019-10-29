@@ -1,5 +1,6 @@
 const AssistantV1 = require('ibm-watson/assistant/v1');
 const { BasicAuthenticator } = require('ibm-watson/auth');
+const logger = require('../utils/logger');
 
 /**
  * Assistant object used to interact with Watson API
@@ -52,14 +53,14 @@ const listWorkSpaces = () => assistant.listWorkspaces();
  * @param {String} context Conversation ID, defaults to undefined (to initiate a new conversation)
  * @return {promise} Watson response
  */
+
 const message = (text, context = undefined, workspaceId = undefined) => {
   const payload = {
-    workspace_id: workspaceId || process.env.WORKSPACE_ID,
-    input: {
-      text,
-    },
+    workspaceId: workspaceId || process.env.WORKSPACE_ID,
+    input: { text },
     context,
   };
+
   return new Promise((resolve, reject) => assistant.message(payload, (err, data) => {
     if (err) {
       reject(err);
