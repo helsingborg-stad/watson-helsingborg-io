@@ -1,6 +1,5 @@
 const AssistantV1 = require('ibm-watson/assistant/v1');
 const { BasicAuthenticator } = require('ibm-watson/auth');
-const logger = require('../utils/logger');
 
 /**
  * Assistant object used to interact with Watson API
@@ -15,12 +14,18 @@ const assistant = new AssistantV1({
 
   /**
    * Authentication
-   * @name iam_apikey
-   * @type {String}
    */
-  // iam_apikey: process.env.ASSISTANT_IAM_APIKEY,
   authenticator: new BasicAuthenticator({
+    /**
+     * @name username
+     * @type {String}
+     */
     username: process.env.ASSISTANT_USERNAME,
+
+    /**
+     * @name password
+     * @type {String}
+     */
     password: process.env.ASSISTANT_PASSWORD,
   }),
 
