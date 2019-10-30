@@ -31,7 +31,7 @@ const sendMessage = async (req, res) => {
     // Fetch data from another layer.
     const response = await message(textInput, context, workspaceId);
 
-    return await createSuccessResponse(response, res, 'message', 'includeId');
+    return await createSuccessResponse(response.result, res, 'message', 'includeId');
   } catch (error) {
     return createErrorResponse(error, res);
   }
