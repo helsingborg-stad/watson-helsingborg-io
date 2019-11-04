@@ -22,14 +22,16 @@ const createSuccessResponse = async (data, res, jsonapiType, converter) => {
 const sendMessage = async (req, res) => {
   // Write method for reading a resource (in this case a get request towards the testapi)
   try {
-    const { workspaceId, textInput, context } = req.body;
+    const {
+      workspaceId, textInput, context, intents, entities,
+    } = req.body;
 
     if (!workspaceId) {
       throw new BadRequestError('Missing required arguments: workspaceId.');
     }
 
     // Fetch data from another layer.
-    const response = await message(textInput, context, workspaceId);
+    const response = await message(textInput, context, workspaceId, intents, entities);
 
     return await createSuccessResponse(response.result, res, 'message', 'includeId');
   } catch (error) {

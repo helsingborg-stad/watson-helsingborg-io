@@ -59,11 +59,19 @@ const listWorkSpaces = () => assistant.listWorkspaces();
  * @return {promise} Watson response
  */
 
-const message = (text, context = undefined, workspaceId = undefined) => {
+const message = (
+  text,
+  context = undefined,
+  workspaceId = undefined,
+  intents = undefined,
+  entities = undefined,
+) => {
   const payload = {
     workspaceId: workspaceId || process.env.WORKSPACE_ID,
     input: { text },
     context,
+    intents,
+    entities,
   };
 
   return new Promise((resolve, reject) => assistant.message(payload, (err, data) => {
