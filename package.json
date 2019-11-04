@@ -1,6 +1,6 @@
 {
   "name": "watson-helsingborg-io",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Microservice for interactions with IBM Watson Assistant",
   "main": "server.js",
   "scripts": {
