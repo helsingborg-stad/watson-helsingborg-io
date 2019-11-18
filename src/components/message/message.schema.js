@@ -3,7 +3,7 @@ const { guid } = require('../../validation/global.schema');
 
 // Generic Schema.
 const postSchema = Joi.object().keys({
-  textInput: Joi.string().required(),
+  textInput: Joi.string().allow('').required(),
   context: Joi.object().keys({
     conversation_id: Joi.string(),
     system: Joi.object(),
