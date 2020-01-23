@@ -20,7 +20,7 @@ describe('Message', () => {
     .request(server)
     .post('/api/v1/message')
     .send({
-      workspaceId: process.env.WORKSPACE_ID,
+      assistantId: process.env.ASSISTANT_ID,
       textInput: 'Mocha unit test message',
     })
     .then((res) => {

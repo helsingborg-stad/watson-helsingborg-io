@@ -7,7 +7,7 @@ const server = require('../../server');
 const should = chai.should();
 chai.use(chaiHttp);
 
-describe('Workspaces', () => {
+describe('Session', () => {
   after(async () => {
     server.close();
   });
@@ -15,10 +15,12 @@ describe('Workspaces', () => {
   beforeEach(async () => {
   });
 
-  it('should return json on GET with workspaces query', async () => chai
+  it('should return json on GET with session query', async () => chai
     .request(server)
-    .get('/api/v1/workspaces')
-    .send()
+    .post('/api/v1/session')
+    .send({
+      assistantId: process.env.ASSISTANT_ID,
+    })
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;

@@ -1,80 +1,63 @@
-const AssistantV1 = require('ibm-watson/assistant/v1');
-const { BasicAuthenticator } = require('ibm-watson/auth');
+const AssistantV2 = require('ibm-watson/assistant/v2');
+const { IamAuthenticator } = require('ibm-watson/auth');
 
 /**
  * Assistant object used to interact with Watson API
  */
-const assistant = new AssistantV1({
-  /**
-   * Defines which release to use
-   * @name version
-   * @type {String} release date which can be found on each release here: https://github.com/watson-developer-cloud/node-sdk/releases
-   */
+const assistantV2 = new AssistantV2({
   version: process.env.ASSISTANT_VERSION_DATE,
-
-  /**
-   * Authentication
-   */
-  authenticator: new BasicAuthenticator({
-    /**
-     * @name username
-     * @type {String}
-     */
-    username: process.env.ASSISTANT_USERNAME,
-
-    /**
-     * @name password
-     * @type {String}
-     */
-    password: process.env.ASSISTANT_PASSWORD,
+  authenticator: new IamAuthenticator({
+    apikey: process.env.ASSISTANT_IAM_APIKEY,
   }),
-
-  /**
-   * Base URL for requests, can be found under the service credentials
-   * @name url
-   * @type {String}
-   */
-  url: process.env.ASSISTANT_URL,
-
-  /**
-   * Wheter to use SSL or not
-   * TODO: Configure HTTPS properly, need to know deployment enviroment to do this.
-   * @name disable_ssl_verification
-   * @type {Boolean}
-   */
-  disable_ssl_verification: true,
+  url: process.env.SERVICE_ENDPOINT,
 });
 
 /**
- * Get list of workspaces
- * @return {promise}
+ * Create a session
+ * @param {string} assistantId
  */
-const listWorkSpaces = () => assistant.listWorkspaces();
+const createSession = (assistantId) => {
+  const request = assistantV2.createSession({
+    assistantId: assistantId || process.env.ASSISTANT_ID,
+  })
+    .then(res => res)
+    .catch(err => err);
+
+  return request;
+};
 
 /**
  * Send user input message to Watson
- * @param {String} workspaceId GUID of a workspace (Can be found using listWorkSpaces method)
+ * @param {String} sessionId Session ID
+ * @param {String} assistantId GUID of an assistant
  * @param {String} text User input message
  * @param {String} context Conversation ID, defaults to undefined (to initiate a new conversation)
  * @return {promise} Watson response
  */
-
 const message = (
   text,
+  sessionId,
+  assistantId,
   context = undefined,
-  workspaceId = undefined,
   intents = undefined,
   entities = undefined,
 ) => {
   const payload = {
-    workspaceId: workspaceId || process.env.WORKSPACE_ID,
-    input: { text },
+    assistantId: assistantId || process.env.ASSISTANT_ID,
+    sessionId,
+    input: {
+      message_type: 'text',
+      text,
+      options: {
+        return_context: true,
+      },
+    },
     context,
     intents,
     entities,
   };
 
-  return new Promise((resolve, reject) => assistant.message(payload, (err, data) => {
+  return new Promise((resolve, reject) => assistantV2.message(payload, (err, data) => {
     if (err) {
       reject(err);
     } else {
@@ -83,4 +66,6 @@ const message = (
   }));
 };
 
-module.exports = { assistant, message, listWorkSpaces };
+module.exports = {
+  message, createSession,
+};

@@ -5,10 +5,10 @@ const { guid } = require('../../validation/global.schema');
 const postSchema = Joi.object().keys({
   textInput: Joi.string().allow('').required(),
   context: Joi.object().keys({
-    conversation_id: Joi.string(),
     system: Joi.object(),
   }),
-  workspaceId: guid,
+  sessionId: Joi.string().required(),
+  assistantId: guid,
   intents: Joi.array(),
   entities: Joi.array(),
 });

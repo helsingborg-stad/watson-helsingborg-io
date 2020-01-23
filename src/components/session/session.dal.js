@@ -1,7 +1,7 @@
-
 const jsonapi = require('../../jsonapi');
 const logger = require('../../utils/logger');
-const { listWorkSpaces } = require('../../service/watson');
+const { createSession } = require('../../service/watson');
+const { BadRequestError } = require('../../utils/error');
 
 const createErrorResponse = async (error, res) => {
   logger.error(error);
@@ -17,22 +17,28 @@ const createSuccessResponse = async (data, res, jsonapiType) => {
 /**
  * READ RESOURCE METHODS
  */
+const createNewSession = async (req, res) => {
+  const {
+    assistantId,
+  } = req.body;
 
-const getWorkSpaces = async (req, res) => {
-  // Write method for reading a resource (in this case a get request towards the testapi)
+  if (!assistantId) {
+    throw new BadRequestError('Missing required arguments: assistantId.');
+  }
+
   try {
-    const resourceData = await listWorkSpaces();
+    const resourceData = await createSession(assistantId);
 
-    return await createSuccessResponse(resourceData.result.workspaces, res, 'workspaces');
+    return await createSuccessResponse(resourceData.result, res, 'session');
   } catch (error) {
     return createErrorResponse(error, res);
   }
 };
 
-const read = {
-  workspaces: getWorkSpaces,
+const create = {
+  session: createNewSession,
 };
 
 module.exports = {
-  read,
+  create,
 };

@@ -10,8 +10,7 @@ const createErrorResponse = async (error, res) => {
 };
 
 const createSuccessResponse = async (data, res, jsonapiType, converter) => {
-  const convertData = await jsonapi.convert[converter](data);
-  const serializedData = await jsonapi.serializer.serialize(jsonapiType, convertData);
+  const serializedData = await jsonapi.serializer.serialize(jsonapiType, data);
   return res.json(serializedData);
 };
 
@@ -23,15 +22,15 @@ const sendMessage = async (req, res) => {
   // Write method for reading a resource (in this case a get request towards the testapi)
   try {
     const {
-      workspaceId, textInput, context, intents, entities,
+      assistantId, sessionId, textInput, context, intents, entities,
     } = req.body;
 
-    if (!workspaceId) {
-      throw new BadRequestError('Missing required arguments: workspaceId.');
+    if (!sessionId) {
+      throw new BadRequestError('Missing required arguments: sessionId.');
     }
 
     // Fetch data from another layer.
-    const response = await message(textInput, context, workspaceId, intents, entities);
+    const response = await message(textInput, sessionId, assistantId, context, intents, entities);
 
     return await createSuccessResponse(response.result, res, 'message', 'includeId');
   } catch (error) {
