@@ -6,7 +6,7 @@ const { BadRequestError } = require('../../utils/error');
 const createErrorResponse = async (error, res) => {
   logger.error(error);
   const serializedData = await jsonapi.serializer.serializeError(error);
-  return res.status(error.status).json(serializedData);
+  return res.status(error.status || error.code).json(serializedData);
 };
 
 const createSuccessResponse = async (data, res, jsonapiType, converter) => {
