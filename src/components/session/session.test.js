@@ -15,7 +15,7 @@ describe('Session', () => {
   beforeEach(async () => {
   });
 
-  it('should return json on GET with session query', async () => chai
+  it('should return json on POST with session ID', async () => chai
     .request(server)
     .post('/api/v1/session')
     .send({
@@ -25,5 +25,6 @@ describe('Session', () => {
       res.should.have.status(200);
       res.should.be.json;
       should.exist(res.body);
+      should.exist(res.body.data.attributes.session_id);
     }));
 });
