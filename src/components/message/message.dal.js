@@ -1,6 +1,6 @@
 const jsonapi = require('../../jsonapi');
 const logger = require('../../utils/logger');
-const { message } = require('../../service/watson');
+const { message, createSession } = require('../../service/watson');
 const { BadRequestError } = require('../../utils/error');
 
 const createErrorResponse = async (error, res) => {
@@ -19,18 +19,30 @@ const createSuccessResponse = async (data, res, jsonapiType, converter) => {
  */
 
 const sendMessage = async (req, res) => {
-  // Write method for reading a resource (in this case a get request towards the testapi)
-  try {
-    const {
-      assistantId, sessionId, textInput, context, intents, entities,
-    } = req.body;
+  const {
+    assistantId, textInput, context, intents, entities,
+  } = req.body;
+  let { sessionId } = req.body;
 
-    if (!sessionId) {
-      throw new BadRequestError('Missing required arguments: sessionId.');
+  if (!assistantId) {
+    throw new BadRequestError('Missing required arguments: assistantId.');
+  }
+
+  // Create a new session if parameter 'sessionId' is missing
+  if (!sessionId) {
+    try {
+      const sessionData = await createSession(assistantId);
+      sessionId = sessionData.result.session_id;
+      // return await createSuccessResponse(resourceData.result, res, 'session');
+    } catch (error) {
+      return createErrorResponse(error, res);
     }
+  }
 
+  try {
     // Fetch data from another layer.
     const response = await message(textInput, sessionId, assistantId, context, intents, entities);
+    response.result.session_id = sessionId;
 
     return await createSuccessResponse(response.result, res, 'message', 'includeId');
   } catch (error) {
