@@ -17,7 +17,7 @@ const Serializer = new JSONAPISerializer({
  * register schemas to serializer imported from jsonapi/schemas.
  */
 
-Serializer.register('workspaces', schemas.workspaces);
 Serializer.register('message', schemas.message);
+Serializer.register('session', schemas.session);
 
 module.exports = Serializer;

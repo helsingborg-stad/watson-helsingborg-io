@@ -1,5 +1,5 @@
 const express = require('express');
-const workspaces = require('./workspaces/workspaces.api');
+const session = require('./session/session.api');
 const message = require('./message/message.api');
 const pjson = require('../../package.json');
 
@@ -18,7 +18,7 @@ const routes = () => {
   }));
 
   // Register route to api-layer.
-  router.use('/workspaces', workspaces());
+  router.use('/session', session());
   router.use('/message', message());
 
   return router;
