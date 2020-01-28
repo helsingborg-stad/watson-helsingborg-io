@@ -19,29 +19,16 @@ describe('Message', () => {
 
   it('should return json on POST with message query', async () => chai
     .request(server)
-    .post('/api/v1/session')
+    .post('/api/v1/message')
     .send({
       assistantId: ASSISTANT_ID,
+      textInput: 'Mocha unit test message',
     })
     .then((res) => {
       res.should.have.status(200);
       res.should.be.json;
       should.exist(res.body);
-      should.exist(res.body.data.attributes.session_id);
-      chai
-        .request(server)
-        .post('/api/v1/message')
-        .send({
-          assistantId: ASSISTANT_ID,
-          sessionId: res.body.data.attributes.session_id,
-          textInput: 'Mocha unit test message',
-        })
-        .then((res) => {
-          res.should.have.status(200);
-          res.should.be.json;
-          should.exist(res.body);
-          should.exist(res.body.data.attributes.output);
-        });
+      should.exist(res.body.data.attributes.output);
     }));
 
   it('should return 422 on /message POST without sessionId or assistantId', async () => chai
