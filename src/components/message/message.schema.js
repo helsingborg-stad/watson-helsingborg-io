@@ -7,8 +7,8 @@ const postSchema = Joi.object().keys({
   context: Joi.object().keys({
     system: Joi.object(),
   }),
-  sessionId: Joi.string().required(),
-  assistantId: guid,
+  sessionId: guid,
+  assistantId: guid.required(),
   intents: Joi.array(),
   entities: Joi.array(),
 });
