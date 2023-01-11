@@ -37,7 +37,7 @@
     "express-pino-logger": "^4.0.0",
     "ibm-watson": "^5.1.0",
     "json-api-serializer": "^2.1.0",
-    "knex": "^0.17.1",
+    "knex": "^2.4.0",
     "mysql": "^2.17.1",
     "pino": "^5.12.5",
     "redis": "^2.8.0",
